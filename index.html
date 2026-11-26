@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
+<meta name="theme-color" content="#061b50"><title>Физик</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#061b50;color:#fff;font-family:Arial,sans-serif}header{position:sticky;top:0;background:#061b50ee;padding:12px;text-align:center;border-bottom:1px solid #4b8dff;z-index:2}h1{font-size:22px;margin:0}#count{font-size:13px;color:#cde0ff;margin-top:4px}.viewer{min-height:calc(100vh - 112px);display:flex;align-items:center;justify-content:center;padding:8px}.viewer img{max-width:100%;max-height:calc(100vh - 130px);object-fit:contain;border-radius:8px}nav{position:sticky;bottom:0;background:#061b50;padding:10px;display:flex;gap:10px;justify-content:center;border-top:1px solid #4b8dff}button{background:#1765d1;color:white;border:0;border-radius:22px;padding:12px 22px;font-size:16px;font-weight:bold}button:disabled{opacity:.4}#pages{background:#0c2c69;color:#fff;border:1px solid #6aa4ff;border-radius:10px;padding:8px;font-size:16px}
+</style></head>
+<body><header><h1>ФИЗИК</h1><div id="count">Цахим хичээлийн ном · 20 хуудас</div></header>
+<main class="viewer"><img id="page" src="pages/page-01.jpg" alt="Физикийн номын 1-р хуудас"></main>
+<nav><button id="prev">Өмнөх</button><select id="pages" aria-label="Хуудас сонгох"></select><button id="next">Дараах</button></nav>
+<script>
+let current=1;const img=document.getElementById('page'),sel=document.getElementById('pages'),count=document.getElementById('count'),prev=document.getElementById('prev'),next=document.getElementById('next');
+for(let i=1;i<=20;i++){let o=document.createElement('option');o.value=i;o.textContent='Хуудас '+i;sel.appendChild(o)}
+function show(n){current=Math.max(1,Math.min(20,n));let s=String(current).padStart(2,'0');img.src='pages/page-'+s+'.jpg';img.alt='Физикийн номын '+current+'-р хуудас';sel.value=current;count.textContent=current+' / 20 · Физикийн цахим ном';prev.disabled=current===1;next.disabled=current===20}
+prev.onclick=()=>show(current-1);next.onclick=()=>show(current+1);sel.onchange=()=>show(Number(sel.value));let startX=0;img.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});img.addEventListener('touchend',e=>{let dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>50)show(current+(dx<0?1:-1))},{passive:true});show(1);
+</script></body></html>
